@@ -4,9 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class MemberController {
+public class MemberController { // MemberController은 컨트롤러, 아래 world(), json()은 메서드
     // 동적으로 페이지 처리 위해서 템플릿 엔진 활용 -> resource/templates/hello.html
     @GetMapping("/hello")
     public String world(@RequestParam(name="name") String name, Model model) {  // 쿼리 스트링(?name=brown)으로 전달된 name 값을 @RequestParam 을 활용해 컨트롤러 메서드의 파리미터로 주입받기
@@ -15,8 +16,9 @@ public class MemberController {
         return null;
     }
 
+    @GetMapping("/json")
+    @ResponseBody // 컨트롤러 메서드의 리턴타입을 그대로 body에 담아 응답을 하기 위해서는 @responseBody 활용
     public Person json() {
-        // TODO: /json 요청 시 {"name": "brown", "age": 20} 데이터를 응답할 수 있도록 설정하세요.
-        return null;
+        return new Person("brown", 20);
     }
 }
