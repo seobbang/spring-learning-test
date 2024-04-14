@@ -1,8 +1,10 @@
 package cholog;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringTest {
     @Test
@@ -27,6 +29,14 @@ public class StringTest {
     void substring() {
         String string = "(1,2)".substring(1,4);
         assertThat(string).isEqualTo("1,2");
+    }
+
+    @Test
+    @DisplayName("charAt 메서드 실행시 문자열 인덱스값을 벗어날 경우 예외 발생 테스트")
+    void charAt() {
+        assertThatThrownBy(() -> "abc".charAt(3))
+            .isInstanceOf(StringIndexOutOfBoundsException.class)
+            .hasMessageContaining("String index out of range: 3");
     }
 }
 
