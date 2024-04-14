@@ -22,5 +22,11 @@ public class StringTest {
         String[] splitArray = "1".split(",");
         assertThat(splitArray).containsExactly("1");
     }
+
+    @Test
+    void substring() {
+        String string = "(1,2)".substring(1,4);
+        assertThat(string).isEqualTo("1,2");
+    }
 }
 
