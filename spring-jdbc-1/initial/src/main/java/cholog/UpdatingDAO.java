@@ -41,7 +41,10 @@ public class UpdatingDAO {
      */
     public int delete(Long id) {
         //todo: id에 해당하는 customer를 지우고, 해당 쿼리에 영향받는 row 수반환하기
-        return 0;
+        String sql = "delete from customers where id = ?";
+        //valueOf: 입력받은 문자열을 Long 객체로 반환
+        int rowNum = jdbcTemplate.update(sql, Long.valueOf(id));
+        return rowNum;
     }
 
     /**
