@@ -52,12 +52,20 @@ public class UpdatingDAO {
      */
     public Long insertWithKeyHolder(Customer customer) {
         String sql = "insert into customers (first_name, last_name) values (?, ?)";
+        //KeyHolder : 자동으로 생성된 키 값을 구할 수 있도록 해줌.
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
+        //prepareStatement 두번째 파라미터 : 자동 생성되는 키 목록을 지정
         //todo : keyHolder에 대해 학습하고, Customer를 저장후 저장된 Customer의 id를 반환하기
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
+            ps.setString(1, customer.getFirstName());
+            ps.setString(2, customer.getLastName());
+            return ps;
+        }, keyHolder);
 
         Long id = keyHolder.getKey().longValue();
 
-        return keyHolder.getKey().longValue();
+        return id;
     }
 }
