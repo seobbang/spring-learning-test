@@ -31,6 +31,7 @@ public class QueryingDAO {
      */
     public int count() {
         //TODO : customers 디비에 포함되어있는 row가 몇개인지 확인하는 기능 구현
+        // queryForObject : 단건을 조회할 때 사용하는 메서드
         int rowCount = jdbcTemplate.queryForObject("select count(*) from customers", Integer.class);
         return rowCount;
     }
@@ -40,7 +41,8 @@ public class QueryingDAO {
      */
     public String getLastName(Long id) {
         //TODO : 주어진 Id에 해당하는 customers의 lastName을 반환
-        return null;
+        String lastName = jdbcTemplate.queryForObject("select last_name from customers where id = ?", String.class, id);
+        return lastName;
     }
 
     /**
